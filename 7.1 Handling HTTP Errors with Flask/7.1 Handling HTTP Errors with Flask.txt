@@ -1,6 +1,5 @@
 -> Handling HTTP Errors Lesson  
    -> Handling HTTP Errors with Flask  
-   -> 13 min to complete á By Brandon Gigous  
 
 -> Contents  
    -> Introduction  
@@ -25,10 +24,10 @@
    -> It's crucial to handle these errors in a way that makes it clear to the user what the issue is and how they might fix it  
 
 -> Common HTTP Error Codes  
-   -> 403: Forbidden Ð This means the server is refusing to allow access to the requested resource (e.g., trying to access a restricted page)  
-   -> 404: Not Found Ð This error occurs when the server can't find the page you're trying to access (e.g., mistyped URL or deleted page)  
-   -> 500: Internal Server Error Ð This indicates a problem with the server itself, usually due to a bug or unexpected situation on the server  
-   -> 200: OK Ð This is a successful HTTP response code. You won't see this on an error page since 2xx codes indicate success  
+   -> 403: Forbidden ' This means the server is refusing to allow access to the requested resource (e.g., trying to access a restricted page)  
+   -> 404: Not Found ' This error occurs when the server can't find the page you're trying to access (e.g., mistyped URL or deleted page)  
+   -> 500: Internal Server Error ' This indicates a problem with the server itself, usually due to a bug or unexpected situation on the server  
+   -> 200: OK ' This is a successful HTTP response code. You won't see this on an error page since 2xx codes indicate success  
    -> The 500 error is often used as a fallback when the server encounters an unexpected issue and doesn't have a specific code to report  
 
 -> Build Routes for Error Handling  
@@ -50,12 +49,12 @@
          return render_template('error.html', error_title="Internal Server Error", error_msg="Sorry, we seem to be experiencing some technical difficulties"), 500  
      ```  
    -> The above error handlers will return custom error pages for the respective HTTP status codes  
-   -> FlaskÕs `@app.errorhandler()` decorator allows you to intercept errors, catch them, and provide more meaningful feedback  
+   -> Flask's `@app.errorhandler()` decorator allows you to intercept errors, catch them, and provide more meaningful feedback  
 
 -> Create an Error Template  
    -> After defining error handlers, the next step is to create a template that will be used to render the error messages  
    -> Using template inheritance, you can create a simple error page that reuses elements from your main layout (e.g., navigation bar, styles)  
-   -> HereÕs an example of a simple error page template (`error.html`):  
+   -> Here's an example of a simple error page template (`error.html`):  
      ```html  
      {% extends 'base.html' %}  
      {% block title %}{{super()}} {{error_title}}{% endblock %}  
@@ -70,7 +69,7 @@
 
 -> Using the Function  
    -> Flask provides the `abort()` function to allow you to manually trigger an HTTP error from within a view function  
-   -> This function is useful when you want to signal that something went wrong, such as when a user doesnÕt exist or if access is denied to a page  
+   -> This function is useful when you want to signal that something went wrong, such as when a user doesn't exist or if access is denied to a page  
    -> The `abort()` function raises an exception and immediately stops further processing of the request, triggering the relevant error handler  
    -> Example of using `abort()` to raise a 404 error if a user does not exist:  
      ```python  
