@@ -1,0 +1,83 @@
+-> Importance of Error Handlers and Custom Error Pages in Flask
+    -> Overview of Error Handlers
+        -> Error handlers are a crucial part of web applications as they help manage unexpected situations that arise during user interaction
+        -> In Flask, error handlers allow the application to respond with custom error messages and handle failures more gracefully
+        -> Common errors include:
+            -> “404 Page Not Found” – occurs when a user tries to visit a page that does not exist
+            -> “500 Internal Server Error” – occurs when there’s an issue on the server side, like a bug in the code or database issues
+        -> A well-designed error page provides users with meaningful information, making the site feel more professional and user-friendly
+        -> By customising error pages, you also help the user understand what went wrong, rather than showing a generic browser error message
+
+    -> What is an Error Handler?
+        -> An error handler is similar to a route handler but is specifically tied to errors
+        -> A route handler executes when a request matches a specific URL pattern; an error handler executes when a specific error (e.g., 404 or 500) occurs
+        -> Error handlers are implemented using a decorator syntax, where the decorator takes an HTTP status code (such as `404` for “Not Found” or `500` for “Internal Server Error”) as an argument
+        -> The error handler function is triggered automatically when the specified error occurs
+        -> Error handler functions can receive an error object, although this is not mandatory for every use case; usually, the key task is to return a response with the correct status code
+
+    -> Setting Up a Custom Error Page
+        -> Custom error pages improve the user experience by showing specific messages depending on the error encountered
+        -> Flask’s error handlers allow you to customise the entire process:
+            -> Create a decorator that listens for specific HTTP error codes
+            -> Define a function that returns an appropriate response, such as an HTML template or a simple message
+            -> Pass dynamic variables (like error messages) to templates to render a more informative response
+        -> Example: The `404` error for a missing page could show a custom HTML page that says “Oops! This page doesn’t exist,” instead of Flask’s default error page
+
+    -> Creating a 404 Error Handler
+        -> Let’s focus on implementing a custom handler for the “404 Page Not Found” error:
+            -> Create an HTML template that will render a custom message to the user when a page is not found
+            -> This template will typically include:
+                -> A title (e.g., “Page Not Found”)
+                -> A dynamic message informing the user that the page doesn’t exist or was moved
+        -> In your handler function, pass relevant information (like the error message or page name) into the template for dynamic rendering
+        -> Flask provides an error handler that can catch 404 errors:
+            -> Use `@app.errorhandler(404)` to define the handler function for 404 errors
+            -> The function will render a template (e.g., `404.html`) with the error message
+            -> The custom error handler will ensure users are redirected to a meaningful error page, improving usability
+
+    -> Specifying the Correct HTTP Status Code
+        -> It's not enough to just return an error page—it's important to specify the correct HTTP status code in the response:
+            -> 404 indicates “Page Not Found”
+            -> 500 indicates “Internal Server Error”
+            -> Other common status codes: 403 (Forbidden), 400 (Bad Request), 401 (Unauthorised)
+        -> Returning the correct HTTP status code ensures the browser can handle the error properly, and the user understands what went wrong
+        -> Flask allows you to specify the status code alongside the response returned by the error handler function
+        -> Example: When you return an HTML template for the 404 error, you can explicitly set the status code using `return render_template('404.html'), 404` to ensure the response has the correct code
+
+    -> Testing the Error Handler
+        -> To verify that your custom error page works, try navigating to a page that doesn’t exist in the browser
+        -> Flask’s default behaviour would show the default browser error page, but with the error handler in place, you should see your custom error page instead
+        -> This demonstrates how error handlers allow you to catch errors, handle them gracefully, and provide users with a more informative and consistent user experience
+
+    -> Example: Handling a Missing Article (404 Error)
+        -> Suppose your app displays articles based on an ID passed in the URL (e.g., `/article/123` where `123` is the article ID)
+        -> In a real-world scenario, the article would be fetched from a database; however, for simplicity, you can simulate this with predefined article strings
+        -> If the article ID does not exist in your data, Flask would normally raise a 404 error, but you can trigger the error manually for a more customised user experience
+        -> Instead of Flask’s default 404 error page, you can return your custom error page with the message "Article Not Found"
+
+    -> Using the Abort Function
+        -> Flask provides the `abort()` function to explicitly trigger error pages
+        -> The `abort()` function allows you to raise an error intentionally in your code:
+            -> For example, if an article ID does not exist, you can call `abort(404)` to simulate a 404 error and trigger the error handler
+        -> To use `abort()`, simply import it from Flask and call it with the desired status code:
+            -> `from flask import abort`
+            -> `abort(404)` to raise a “Page Not Found” error
+        -> This triggers the 404 error handler, which will render the custom error page
+        -> This method ensures that specific error conditions (like missing articles or broken links) are handled in a way that’s informative and professional for the user
+
+    -> Triggering a 404 Error with Abort
+        -> In the route where you retrieve articles, check whether the article ID exists:
+            -> If it exists, display the article
+            -> If it doesn’t exist, use `abort(404)` to trigger the custom error handler
+        -> This lets the user know that the article could not be found, and they are redirected to the 404 error page
+        -> Example:
+            -> `article = get_article(id)`
+            -> `if not article: abort(404)` to manually trigger the 404 error handler when the article is not found
+        -> This behaviour ensures that errors are managed with control, avoiding unexpected crashes or unhandled errors in your application
+
+    -> Summary and Benefits of Error Handlers
+        -> Error handlers allow Flask applications to catch and handle specific errors in a graceful manner
+        -> By customising error pages (like 404 errors), developers can improve the user experience, making it clear to users when something goes wrong
+        -> Using the `abort()` function provides control over when to trigger an error, especially when dealing with missing resources or broken links
+        -> Custom error pages with specific HTTP status codes are essential for a polished and professional Flask application
+        -> Error handlers contribute to robust applications that are user-friendly, easy to debug, and more secure
