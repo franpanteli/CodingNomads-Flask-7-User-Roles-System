@@ -11,7 +11,7 @@ I saved course material as pdf files (.pdf extensions) and made notes on these (
 ![7 1 Word Cloud](https://github.com/user-attachments/assets/93541876-82e0-44e7-9287-d9027c425052)
 
 ### Yellow
-Video notes were made in a txt format, contained in [7.3 Videos](https://github.com/franpanteli/CodingNomads-Flask-7-User-Roles-System/blob/main/7.2%20Quizzes/7.2%20Quiz%20Error%20Handling.pdf). A [module quiz](https://github.com/franpanteli/CodingNomads-Flask-7-User-Roles-System/blob/main/7.2%20Quizzes/7.2%20Quiz%20Error%20Handling.pdf) was finally completed and passed. 
+Video notes were made in a txt format, contained in [7.3 Videos](https://github.com/franpanteli/CodingNomads-Flask-7-User-Roles-System/tree/main/7.3%20Videos). A [module quiz](https://github.com/franpanteli/CodingNomads-Flask-7-User-Roles-System/blob/main/7.2%20Quizzes/7.2%20Quiz%20Error%20Handling.pdf) was finally completed and passed. 
 
 ## To Clone This Repository
 ```
