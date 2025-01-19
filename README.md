@@ -6,7 +6,7 @@ This repository contains my work for the 7th module in the [Coding Nomads Flask 
 
 ## Library Contents
 ### Blue
-I saved course material as pdf files (.pdf extensions) and made notes on these (Written Notes.txt). I made summary notes, by recording voice memos of Siri reading my written notes out (Voiced Notes.mp4a) and [created word clouds](https://wordart.com/create) out of these (Word Cloud.png). These word clouds were combined into a giff, to visually represent module content.
+I saved the course material for this module as a pdf file and made notes. I next made summary notes, by recording a voice memo of Siri reading my written notes out (Voiced Notes.mp4a) and created a word cloud out of this - to visually represent module content.
 
 ![7 1 Word Cloud](https://github.com/user-attachments/assets/93541876-82e0-44e7-9287-d9027c425052)
 
