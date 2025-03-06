@@ -1,77 +1,77 @@
--> Handling HTTP Errors Lesson  
-   -> Handling HTTP Errors with Flask  
+-> handling http errors lesson  
+   -> handling http errors with flask  
 
--> Contents  
-   -> Introduction  
-   -> What are HTTP Errors?  
-   -> Common HTTP Error Codes  
-   -> Build Routes for Error Handling  
-   -> Create an Error Template  
-   -> Using the Function  
-   -> Summary: Handling HTTP Errors with Flask  
+-> contents  
+   -> introduction  
+   -> what are http errors?  
+   -> common http error codes  
+   -> build routes for error handling  
+   -> create an error template  
+   -> using the function  
+   -> summary: handling http errors with flask  
 
--> Introduction  
-   -> By this point in the course, you should have a solid understanding of Jinja templates and routing in Flask  
-   -> However, what happens if something goes wrong? If you try to access an incorrect URL or mistype a route, you'll likely see an HTTP error, such as a "404 Not Found" or "500 Internal Server Error"  
-   -> This lesson will explain how to manage such errors, including how to create custom error pages, allowing your Flask app to handle errors gracefully and communicate clearly with users  
+-> introduction  
+   -> by this point in the course, you should have a solid understanding of jinja templates and routing in flask  
+   -> however, what happens if something goes wrong? if you try to access an incorrect url or mistype a route, you'll likely see an http error, such as a "404 not found" or "500 internal server error"  
+   -> this lesson will explain how to manage such errors, including how to create custom error pages, allowing your flask app to handle errors gracefully and communicate clearly with users  
 
--> What are HTTP Errors?  
-   -> HTTP errors are standard responses from a server, indicating that something went wrong while processing the user's request  
-   -> Each error is associated with a specific status code that gives an indication of the problem, such as 404 for "Not Found" or 500 for "Internal Server Error"  
-   -> While you might not always want to admit it, encountering errors is quite common on the web, even with websites you use frequently  
-   -> The internet is full of HTTP errors, but most servers still manage to handle them fairly well  
-   -> To the server, these errors are just numbers, but they serve an important purpose in identifying what went wrong  
-   -> It's crucial to handle these errors in a way that makes it clear to the user what the issue is and how they might fix it  
+-> what are http errors?  
+   -> http errors are standard responses from a server, indicating that something went wrong while processing the user's request  
+   -> each error is associated with a specific status code that gives an indication of the problem, such as 404 for "not found" or 500 for "internal server error"  
+   -> while you might not always want to admit it, encountering errors is quite common on the web, even with websites you use frequently  
+   -> the internet is full of http errors, but most servers still manage to handle them fairly well  
+   -> to the server, these errors are just numbers, but they serve an important purpose in identifying what went wrong  
+   -> it's crucial to handle these errors in a way that makes it clear to the user what the issue is and how they might fix it  
 
--> Common HTTP Error Codes  
-   -> 403: Forbidden ' This means the server is refusing to allow access to the requested resource (e.g., trying to access a restricted page)  
-   -> 404: Not Found ' This error occurs when the server can't find the page you're trying to access (e.g., mistyped URL or deleted page)  
-   -> 500: Internal Server Error ' This indicates a problem with the server itself, usually due to a bug or unexpected situation on the server  
-   -> 200: OK ' This is a successful HTTP response code. You won't see this on an error page since 2xx codes indicate success  
-   -> The 500 error is often used as a fallback when the server encounters an unexpected issue and doesn't have a specific code to report  
+-> common http error codes  
+   -> 403: forbidden ' this means the server is refusing to allow access to the requested resource (e.g., trying to access a restricted page)  
+   -> 404: not found ' this error occurs when the server can't find the page you're trying to access (e.g., mistyped url or deleted page)  
+   -> 500: internal server error ' this indicates a problem with the server itself, usually due to a bug or unexpected situation on the server  
+   -> 200: ok ' this is a successful http response code. you won't see this on an error page since 2xx codes indicate success  
+   -> the 500 error is often used as a fallback when the server encounters an unexpected issue and doesn't have a specific code to report  
 
--> Build Routes for Error Handling  
-   -> In Flask, you can define custom error handlers to process specific errors and display user-friendly messages instead of the default error page  
-   -> You can handle different HTTP errors by using the `@app.errorhandler()` decorator, specifying the error code you want to handle  
-   -> For each error handler, you will define a view function that returns a custom message or error page  
-   -> Example:  
+-> build routes for error handling  
+   -> in flask, you can define custom error handlers to process specific errors and display user-friendly messages instead of the default error page  
+   -> you can handle different http errors by using the `@app.errorhandler()` decorator, specifying the error code you want to handle  
+   -> for each error handler, you will define a view function that returns a custom message or error page  
+   -> example:  
      ```python  
      @app.errorhandler(403)  
      def forbidden(e):  
-         return render_template('error.html', error_title="Forbidden", error_msg="You shouldn't be here!")  
+         return render_template('error.html', error_title="forbidden", error_msg="you shouldn't be here!")  
      
      @app.errorhandler(404)  
      def page_not_found(e):  
-         return render_template('error.html', error_title="Not Found", error_msg="That page doesn't exist")  
+         return render_template('error.html', error_title="not found", error_msg="that page doesn't exist")  
      
      @app.errorhandler(500)  
      def internal_server_error(e):  
-         return render_template('error.html', error_title="Internal Server Error", error_msg="Sorry, we seem to be experiencing some technical difficulties"), 500  
+         return render_template('error.html', error_title="internal server error", error_msg="sorry, we seem to be experiencing some technical difficulties"), 500  
      ```  
-   -> The above error handlers will return custom error pages for the respective HTTP status codes  
-   -> Flask's `@app.errorhandler()` decorator allows you to intercept errors, catch them, and provide more meaningful feedback  
+   -> the above error handlers will return custom error pages for the respective http status codes  
+   -> flask's `@app.errorhandler()` decorator allows you to intercept errors, catch them, and provide more meaningful feedback  
 
--> Create an Error Template  
-   -> After defining error handlers, the next step is to create a template that will be used to render the error messages  
-   -> Using template inheritance, you can create a simple error page that reuses elements from your main layout (e.g., navigation bar, styles)  
-   -> Here's an example of a simple error page template (`error.html`):  
+-> create an error template  
+   -> after defining error handlers, the next step is to create a template that will be used to render the error messages  
+   -> using template inheritance, you can create a simple error page that reuses elements from your main layout (e.g., navigation bar, styles)  
+   -> here's an example of a simple error page template (`error.html`):  
      ```html  
      {% extends 'base.html' %}  
      {% block title %}{{super()}} {{error_title}}{% endblock %}  
      {% block navbar %}{{super()}}{% endblock navbar %}  
      {% block page_content %}  
-         <h1>Whoops</h1>  
+         <h1>whoops</h1>  
          <p>{{error_msg}}</p>  
      {% endblock %}  
      ```  
-   -> This template inherits from the `base.html` layout and overrides the content block to display the error message  
-   -> The `{{error_title}}` and `{{error_msg}}` placeholders will be populated with the specific error details passed from the error handler  
+   -> this template inherits from the `base.html` layout and overrides the content block to display the error message  
+   -> the `{{error_title}}` and `{{error_msg}}` placeholders will be populated with the specific error details passed from the error handler  
 
--> Using the Function  
-   -> Flask provides the `abort()` function to allow you to manually trigger an HTTP error from within a view function  
-   -> This function is useful when you want to signal that something went wrong, such as when a user doesn't exist or if access is denied to a page  
-   -> The `abort()` function raises an exception and immediately stops further processing of the request, triggering the relevant error handler  
-   -> Example of using `abort()` to raise a 404 error if a user does not exist:  
+-> using the function  
+   -> flask provides the `abort()` function to allow you to manually trigger an http error from within a view function  
+   -> this function is useful when you want to signal that something went wrong, such as when a user doesn't exist or if access is denied to a page  
+   -> the `abort()` function raises an exception and immediately stops further processing of the request, triggering the relevant error handler  
+   -> example of using `abort()` to raise a 404 error if a user does not exist:  
      ```python  
      from flask import abort  
      
@@ -80,15 +80,15 @@
          user = load_user(id)  
          if not user:  
              abort(404)  
-         return f"<h1>Hello, {user}!</h1>"  
+         return f"<h1>hello, {user}!</h1>"  
      ```  
-   -> When `abort(404)` is called, Flask will trigger the 404 error handler and render the custom error page you created earlier  
+   -> when `abort(404)` is called, flask will trigger the 404 error handler and render the custom error page you created earlier  
 
--> Summary: Handling HTTP Errors with Flask  
-   -> In this lesson, you learned how to handle HTTP errors effectively in Flask, ensuring that users receive clear and helpful error messages  
-   -> Key points include:  
-      -> HTTP errors are server responses that indicate issues, with each error linked to a specific status code  
-      -> You can handle errors in Flask using the `@app.errorhandler()` decorator and create custom responses  
-      -> You learned how to create an error template using template inheritance, which allows for a consistent design across error pages  
-      -> The `abort()` function allows you to manually trigger errors from within view functions, making it possible to signal specific problems like missing users or invalid access  
-   -> Now you can ensure that your Flask application provides clear, user-friendly error messages when something goes wrong  
+-> summary: handling http errors with flask  
+   -> in this lesson, you learned how to handle http errors effectively in flask, ensuring that users receive clear and helpful error messages  
+   -> key points include:  
+      -> http errors are server responses that indicate issues, with each error linked to a specific status code  
+      -> you can handle errors in flask using the `@app.errorhandler()` decorator and create custom responses  
+      -> you learned how to create an error template using template inheritance, which allows for a consistent design across error pages  
+      -> the `abort()` function allows you to manually trigger errors from within view functions, making it possible to signal specific problems like missing users or invalid access  
+   -> now you can ensure that your flask application provides clear, user-friendly error messages when something goes wrong  
